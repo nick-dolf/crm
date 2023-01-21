@@ -1,0 +1,27 @@
+{
+  "name": "crm",
+  "version": "1.0.0",
+  "description": "CRM built in Node to create static sites",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nick-dolf/crm.git"
+  },
+  "author": "Nick Dolf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nick-dolf/crm/issues"
+  },
+  "homepage": "https://github.com/nick-dolf/crm#readme",
+  "dependencies": {
+    "connect-livereload": "^0.6.1",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "fs-extra": "^11.1.0",
+    "livereload": "^0.9.3",
+    "pug": "^3.0.2"
+  }
+}
