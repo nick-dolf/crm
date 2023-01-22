@@ -5,13 +5,25 @@ const app = express()
 const path = require('path')
 const fse = require('fs-extra')
 
-
 console.log("\n--\nCRM Starting\n--")
 
-// Set up Development Environment
+/*
+/ Site Configuration
+*/
+const config = fse.readJsonSync('config.json')
+
+// Global site variable available to template engine
+app.locals.site = {}
+
+// Remove old site directory
+fse.removeSync('site')
+
+
+/*
+/ Environments (Development, Staging, Production)
+*/
 if (process.env.NODE_ENV === 'development') {
   console.log("Environment: Development")
-
 
   // Make HTML easy to read in development
   app.locals.pretty = true
@@ -30,14 +42,30 @@ if (process.env.NODE_ENV === 'development') {
     }, 100);
   });
 
-
   // On production this will be served by NGINX
   app.use(express.static('site'))
+
+  // Environment Specific
+  app.locals.site.baseURL = "/"
 }
 
+
+/*
+/ Compile SASS
+*/
+const sass = require('sass')
+const result = sass.compile('sass/main.scss')
+fse.outputFile('site/css/style.css', result.css.toString())
+  .catch(err => {
+    console.error(err)
+  })
+
+// Setup template Engine
 app.set('view engine', 'pug')
 
-app.render('site/home', (err, html) => {
+
+
+app.render('site/home', {page:{title:"test"}}, (err, html) => {
   if (err) {
     console.error(err)
   } else {
@@ -46,7 +74,6 @@ app.render('site/home', (err, html) => {
       console.error(err)
     })
   }
-
 })
 
 
