@@ -1,0 +1,16 @@
+doctype html
+html(lang="en")
+  include parts/head
+
+  body.m-4
+
+    main.d-flex.justify-content-center
+      form.mt-5.p-4.bg-secondary.text-white.rounded-3(action="./login" method="post")
+        div.form-outline.mb-4
+          input.form-control(type="text" name="email" id="email")
+          label.form-label(for="email") User Name
+        div.form-outline.mb-4
+          input.form-control(type="password" name="password" id="password")
+          label.form-label(for="password") Password
+        p.text-danger= warning
+        button.btn.btn-primary Sign In

@@ -2,6 +2,7 @@ const PORT = 1337
 require('dotenv').config()
 const express = require('express')
 const app = express()
+module.exports = app
 const path = require('path')
 const fse = require('fs-extra')
 
@@ -76,5 +77,9 @@ app.render('site/home', {page:{title:"test"}}, (err, html) => {
   }
 })
 
+/*
+/ Admin Route
+*/
+app.use('/admin', require('./routes/admin'))
 
 app.listen(PORT, () => {console.log(`listening on port: ${PORT}...`)})
