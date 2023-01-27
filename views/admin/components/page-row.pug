@@ -1,0 +1,6 @@
+mixin page-row(name, permalink)
+  li.list-group-item.d-flex.align-items-center.justify-content-between
+    a.h4.link-dark(href=site.baseURL+permalink)= name
+    div
+      a.btn.btn-primary.mx-4(href=site.baseURL+"admin/"+permalink) Edit
+      button.btn.btn-danger(type="button") Delete

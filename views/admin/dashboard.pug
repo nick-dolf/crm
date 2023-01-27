@@ -1,6 +1,26 @@
 extends layouts/default
+include components/button-primary
+include components/page-row
+
 
 block header 
+  include parts/header-dashboard
 
 block main
-  h1 Dashboard
+
+  .accordion
+    .accordion-item
+      .accordion-header(id="headingOne").d-flex
+        button.accordion-button.collapsed(
+          type="button"
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapseOne"
+          )
+          h3 /
+      div.accordion-collapse.collapse(id="collapseOne")
+        .accordion-body.list-group.list-group-flush
+          li.list-group-item.d-flex.justify-content-end
+            button.btn.btn-primary(onclick=`addImageItem('${name}')` type='button') Add Page
+          ul.list-group.list-group-flush
+            +page-row("Home", "")
+            +page-row("Home", "")

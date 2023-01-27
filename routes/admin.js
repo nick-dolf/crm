@@ -13,7 +13,8 @@ const user = {
   password: process.env.APP_PASS
 }
 
-router.use('/src/assets/css', express.static('src/assets/css'))
+// To ensure login page gets styled
+router.use('/css', express.static('node_modules/bootstrap/dist/css'))
 
 router.get('/login', (req, res) => {
   res.render('admin/login', { heading: 'Login' })
@@ -46,8 +47,8 @@ router.get('/', (req, res) => {
 / Routing
 */
 // static assets
-router.use('/css', express.static('node_modules/bootstrap/dist/css'))
 router.use('/js', express.static('node_modules/bootstrap/dist/js'))
+router.use('/js', express.static('node_modules/jquery/dist'))
 // routes
 router.use('/dashboard', require('./dashboard'))
 
