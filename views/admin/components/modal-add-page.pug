@@ -1,0 +1,22 @@
+mixin modal-add-page()
+  .modal.fade(id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true")
+    .modal-dialog
+      .modal-content
+        .modal-header
+          h1.modal-title.fs-5(id="exampleModalLabel") Add Page
+          button(type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close")
+
+        .modal-body 
+          form()
+            .input-group.mb-2
+              label.input-group-text(for="name") Page Name
+              input.form-control(type="text" name="name" id="name")
+            //- .input-group
+            //-   label.input-group-text(for="permalink") Permalink
+            //-   label.input-group-text(for="permalink")
+            //-     input.form-check-input(name="auto" type="checkbox" value="0")
+            //-   input.form-control(type="text" name="permalink" id="permalink" disabled)
+
+        .modal-footer
+          button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Cancel
+          button.post-page(type="button" class="btn btn-primary") Confirm

@@ -48,6 +48,12 @@ if (process.env.NODE_ENV === 'development') {
 
   // Environment Specific
   app.locals.site.baseURL = "/"
+
+  // Log request
+  app.use('/', (req, res, next) => {
+    console.log(req.method, req.url)
+    next()
+  })
 }
 
 

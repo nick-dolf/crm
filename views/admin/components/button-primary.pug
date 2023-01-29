@@ -1,4 +1,4 @@
-mixin button-primary(text)
+mixin button-primary(text, extraClass)
 
-  button.btn.btn-primary(onclick="buildAll()" id="buildButton")= text
+  button.btn.btn-primary(class=extraClass type='button')= text
     span.ms-2.spinner-border.spinner-border-sm.d-none

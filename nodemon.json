@@ -1,4 +1,4 @@
 {
-  "watch": ["app.js", "views", "routes"],
+  "watch": ["app.js", "views", "routes", "admin"],
   "ext": "js, scss, json, pug"
 }

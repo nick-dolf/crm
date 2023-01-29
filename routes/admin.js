@@ -1,6 +1,7 @@
 const cookieSession = require('cookie-session')
 const express = require('express')
 const router = express.Router()
+const { body, validationResult } = require('express-validator')
 router.use(express.urlencoded({extended: false}))
 router.use(cookieSession({
   name: 'session',
@@ -39,7 +40,9 @@ router.use((req, res, next) => {
 })
 
 router.get('/', (req, res) => {
-  res.redirect(req.app.locals.site.baseURL + 'admin/dashboard')
+  let pageData = {heading: 'Dashboard',pages: []}
+
+  res.render('admin/dashboard', pageData)
 })
 
 
@@ -49,10 +52,10 @@ router.get('/', (req, res) => {
 // static assets
 router.use('/js', express.static('node_modules/bootstrap/dist/js'))
 router.use('/js', express.static('node_modules/jquery/dist'))
+router.use('/js', express.static('admin/js'))
 // routes
-router.use('/dashboard', require('./dashboard'))
+router.use('/pages', require('./pages'))
 
-// router.use('/pages', require('./pages'))
 // router.use('/images', require('./images'))
 // router.use('/src/assets/images', express.static('src/assets/images'))
 // router.use('/assets', express.static('assets'))

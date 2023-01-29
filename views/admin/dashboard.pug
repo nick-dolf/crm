@@ -1,12 +1,21 @@
 extends layouts/default
 include components/button-primary
 include components/page-row
+include components/modal-add-page
 
 
 block header 
   include parts/header-dashboard
 
 block main
+
+
+
+  button.btn.btn-primary.add-page(type="button" data-bs-toggle="modal" data-bs-target="#exampleModal") Add Page
+
+  +button-primary('Confirm', 'test-output')
+
+  +modal-add-page
 
   .accordion
     .accordion-item
@@ -20,7 +29,7 @@ block main
       div.accordion-collapse.collapse(id="collapseOne")
         .accordion-body.list-group.list-group-flush
           li.list-group-item.d-flex.justify-content-end
-            button.btn.btn-primary(onclick=`addImageItem('${name}')` type='button') Add Page
+            button.btn.btn-primary.add-page(data-folder="/" type='button') Add Page
           ul.list-group.list-group-flush
             +page-row("Home", "")
             +page-row("Home", "")
