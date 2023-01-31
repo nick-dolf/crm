@@ -1,0 +1,30 @@
+mixin style-item(id, value, label, text)
+  li.list-group-item
+    div.row.gy-1
+      div.col-md-3
+        label.form-label.m-0= label
+        div.form-text.m-0= text
+      div.col-md-9
+        input.form-control.form-control-color(type="color" name=id id=id value=value)
+
+ul.accordion-body.list-group.list-group-flush
+  +style-item('textColor', textColor,
+              'Text Color', 
+              "Main color for text.")
+  +style-item('linkColor', linkColor,
+              'Link Color',
+              "Color of links.")
+  +style-item('linkHoverColor', linkHoverColor,
+              'Hover Color',
+              "Color of link on hover.")
+  +style-item('topColor', topColor,
+              'Top Color',
+              "Top gradient color.")
+  +style-item('bottomColor', bottomColor,
+              'Bottom Color',
+              "Bottom gradient color.")
+  +style-item('modalColor', modalColor,
+              'Modal Color',
+              "Popup color.")
+  li.list-group-item 
+    small &#128712; Styles just this page.

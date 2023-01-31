@@ -1,0 +1,27 @@
+extends layouts/default
+
+block header 
+  include parts/header-dashboard
+
+block main
+
+  form.accordion(id="pageForm")
+    .accordion-item
+      h2.accordion-header(id="headingOne")
+        button.accordion-button.collapsed(
+          type="button"
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapseOne"
+          ) Page Details
+      .accordion-collapse.collapse(id="collapseOne")
+        include parts/page-meta
+
+    .accordion-item
+      h2.accordion-header(id="headingTwo")
+        button.accordion-button.collapsed(
+          type="button"
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapseTwo"
+          ) Page Style
+      .accordion-collapse.collapse(id="collapseTwo")
+        include parts/page-style

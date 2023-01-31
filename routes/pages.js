@@ -63,7 +63,21 @@ router.post('/',
 / Read (GET)
 */
 router.get('/*', (req, res) => {
-  res.send('ok')
+  const page = path.join(pageDir, req.url)
+  console.log(page)
+
+  fse.readJson(page+".json")
+    .then(data => {
+      let template = 'default'
+      if (data.template) template = data.template
+
+      res.render('admin/'+template, data)
+    })
+    .catch(err => {
+      console.error(err.message)
+      res.status(404).end('page does not exist')
+    })
+
 
 
 })
