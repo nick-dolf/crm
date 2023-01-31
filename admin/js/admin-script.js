@@ -1,3 +1,6 @@
+/*
+/ Output 
+*/
 function output(message, fail) {
   const now = new Date()
 
@@ -8,40 +11,64 @@ function output(message, fail) {
     $("#output").prepend(`${now.getHours()}:${now.getMinutes()}:${now.getSeconds()} - 
     ${message}<br>`)
   }
-
-
   $("#output").animate({ scrollTop: 0 }, "fast")
 }
 
-$(".post-page").click(event => {
-  output($('form').serialize())
+/*
+/ Page Create (POST)
+*/
+$(document).on("click", '.page-post', event => {
+  const postData = $('form').serialize()
 
-
-
-})
-
-$(".test-output").click(event => {
   const button = event.target
-  output('sending post request to server')
+  output(`sending post request to server: ${postData}`)
 
   button.lastChild.classList.remove("d-none")
   button.disabled = true
 
-  $.post("pages", { name: "Second Page"})
+  $.post("pages", postData)
     .done(response => {
       output('post request was successful')
-      console.log('success', response)
+      console.log( response)
+      $('#base').html(response)
     })
     .fail(response => {
       output('post request failed', true)
-      console.log('fail', response.responseText)
+      console.log('fail', response)
     })
     .always(() => {
       button.lastChild.classList.add("d-none")
       button.disabled = false
+      $('.btn-close').click()
     })
-
 })
 
 
-
+/*
+/ Page Delete (DELETE)
+*/
+$(document).on("click", '.page-delete', event => {
+  const button = event.target
+  const deletePage = button.dataset.page
+  if (confirm(`Do you really want to delete ${deletePage}?`)) {
+    output(`sending delete request to server: ${deletePage}`)
+  
+    button.lastChild.classList.remove("d-none")
+    button.disabled = true
+  
+    $.ajax({url: `pages/${deletePage}`, type:'DELETE'})
+      .done(response => {
+        output('delete request was successful')
+        console.log('delete success', response)
+        $('#base').html(response)
+      })
+      .fail(response => {
+        output('delete request failed', true)
+        console.log('delete fail', response.responseText)
+      })
+      .always(() => {
+        button.lastChild.classList.add("d-none")
+        button.disabled = false
+      })
+  }
+})

@@ -1,6 +1,10 @@
-mixin page-row(name, permalink)
+include button-danger
+
+mixin page-row(entry)
   li.list-group-item.d-flex.align-items-center.justify-content-between
-    a.h4.link-dark(href=site.baseURL+permalink)= name
+    a.h4.link-dark(href=site.baseURL+entry.permalink)= entry.name
+    p Published
+      i.bi.bi-check-circle
     div
-      a.btn.btn-primary.mx-4(href=site.baseURL+"admin/"+permalink) Edit
-      button.btn.btn-danger(type="button") Delete
+      a.btn.btn-primary.mx-4(href=site.baseURL+"admin/pages/"+entry.slug) Edit
+      +button-danger('Delete', 'page-delete', entry.slug)

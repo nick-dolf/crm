@@ -1,5 +1,7 @@
-mixin modal-add-page()
-  .modal.fade(id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true")
+include button-primary
+
+mixin modal-add-page(id)
+  .modal.mt-5.fade(id=id tabindex="-1" aria-labelledby="Add Page" aria-hidden="true")
     .modal-dialog
       .modal-content
         .modal-header
@@ -19,4 +21,4 @@ mixin modal-add-page()
 
         .modal-footer
           button(type="button" class="btn btn-secondary" data-bs-dismiss="modal") Cancel
-          button.post-page(type="button" class="btn btn-primary") Confirm
+          +button-primary('Confirm', 'page-post')
