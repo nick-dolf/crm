@@ -1,0 +1,46 @@
+.py-2.px-4.bg-dark.rounded-bottom.border-top
+  .row
+    .col
+      +button-primary('View Published')
+      +button-primary('Publish Draft')
+
+    .col
+      +button-primary('View Draft')
+      +button-primary('Save Draft')
+
+    // Template Selection
+    .col.input-group
+      select.form-select#select-template
+        option(value="text-template") Text
+        option(value="column-template") Column
+
+      +button-primary('Add Section', 'add-section')
+
+// Templates
+template(id="text-template")
+  .accordion-item.crm-section.overflow-hidden
+    .row
+      .col-1.handle.bg-light.d-flex
+        i.bi.bi-grip-vertical
+      h2.col-11.accordion-header(id="heading-index")
+        button.accordion-button.collapsed(
+          type="button"
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapse-index"
+          ) Text
+    .accordion-collapse.collapse(id="collapse-index")
+      include text
+
+template(id="column-template")
+  .accordion-item.crm-section.overflow-hidden
+    .row
+      .col-1.handle.bg-light
+        i.bi.bi-grip-vertical
+      h2.col-11.accordion-header(id="heading-index")
+        button.accordion-button.collapsed(
+          type="button"
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapse-index"
+          ) Column
+    .accordion-collapse.collapse(id="collapse-index")
+      include column

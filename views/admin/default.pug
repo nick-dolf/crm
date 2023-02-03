@@ -2,6 +2,7 @@ extends layouts/default
 
 block header 
   include parts/header-dashboard
+  include sections/controller
 
 block main
 
@@ -25,3 +26,5 @@ block main
           ) Page Style
       .accordion-collapse.collapse(id="collapseTwo")
         include parts/page-style
+
+    #sortable

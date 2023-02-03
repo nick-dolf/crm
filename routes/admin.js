@@ -28,7 +28,7 @@ router.get('/login', (req, res) => {
 router.post('/login', (req, res) => {
   if (req.body.email === user.name && req.body.password === user.password) {
     req.session.loggedin = true;
-    res.redirect(req.app.locals.site.baseURL + 'admin/dashboard')
+    res.redirect(req.app.locals.site.baseURL + 'admin/')
   } else {
     res.render('admin/login', { heading: 'Login', warning: 'incorrect credentials' })
   }
@@ -79,8 +79,10 @@ router.get('/', (req, res) => {
 */
 // static assets
 router.use('/css', express.static('node_modules/bootstrap-icons/font'))
+router.use('/css', express.static('admin/css'))
 router.use('/js', express.static('node_modules/bootstrap/dist/js'))
 router.use('/js', express.static('node_modules/jquery/dist'))
+router.use('/js', express.static('node_modules/jquery-ui/dist'))
 router.use('/js', express.static('admin/js'))
 // routes
 router.use('/pages', require('./pages'))

@@ -7,7 +7,11 @@ const { body, validationResult } = require('express-validator')
 const slugify = require('slugify')
 
 
+/*
+/ Important variables
+*/
 const pageDir = path.join(process.cwd(), 'pages/')
+
 /*
 / Ensure needed files/directories exist
 */
