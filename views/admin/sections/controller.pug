@@ -1,12 +1,14 @@
 .py-2.px-4.bg-dark.rounded-bottom.border-top
   .row
     .col
-      +button-primary('View Published')
-      +button-primary('Publish Draft')
+      +button-primary('View Published', "", "binoculars")
+      span.mx-2
+      +button-primary('Publish Draft', "", "pencil-square")
 
     .col
-      +button-primary('View Draft')
-      +button-primary('Save Draft')
+      +button-primary('View Draft', "", "binoculars")
+      span.mx-2
+      +button-primary('Save Draft', "", "save2")
 
     // Template Selection
     .col.input-group
@@ -21,7 +23,7 @@ template(id="text-template")
   .accordion-item.crm-section.overflow-hidden
     .row
       .col-1.handle.bg-light.d-flex
-        i.bi.bi-grip-vertical
+        i.bi.bi-grip-horizontal
       h2.col-11.accordion-header(id="heading-index")
         button.accordion-button.collapsed(
           type="button"
@@ -35,7 +37,7 @@ template(id="column-template")
   .accordion-item.crm-section.overflow-hidden
     .row
       .col-1.handle.bg-light
-        i.bi.bi-grip-vertical
+        i.bi.bi-grip-horizontal
       h2.col-11.accordion-header(id="heading-index")
         button.accordion-button.collapsed(
           type="button"

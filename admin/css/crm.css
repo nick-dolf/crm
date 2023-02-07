@@ -1,4 +1,7 @@
 .handle {
-  font-size: 2rem;
+  font-size: 3rem;
   cursor: grab;
+  line-height: 3rem;
+  display: flex;
+  justify-content: center;
 }
