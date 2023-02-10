@@ -3,5 +3,5 @@ mixin button-primary(text, extraClass, icon)
   button.btn.btn-primary(class=extraClass type='button')
     if icon
       i.me-2.bi(class=`bi-${icon}`)
-    = text
+    span= text
     span.ms-2.spinner-border.spinner-border-sm.d-none

@@ -1,1 +1,6 @@
-h1 column
+ul.list-group-flush.accordion-body
+  li.list-group-item
+    input(type="text" name="sections[0][type]" value="columns" hidden)
+    textarea.form-control.col-10(name="sections[0][columnOne]" rows=8)
+      = content
+    textarea.form-control.col-10(name="sections[0][columnTwo]" rows=8)

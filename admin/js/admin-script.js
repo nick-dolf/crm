@@ -46,6 +46,40 @@ $(document).on("click", ".page-post", (event) => {
 });
 
 /*
+/ Page Update (PUT)
+*/
+$(".page-draft-update").click((event) => {
+  output("Saving Draft");
+  const button = event.currentTarget;
+
+  button.querySelector(".spinner-border").classList.remove("d-none");
+  button.disabled = true;
+
+  const formData = new FormData(document.getElementById("pageForm"));
+
+  $.ajax({
+    url: "",
+    type: "PUT",
+    data: formData,
+    enctype: "multipart/form-data",
+    processData: false,
+    contentType: false,
+  })
+    .done((response) => {
+      output("update request was successful");
+      console.log("update success", response);
+    })
+    .fail((response) => {
+      output("update request failed", true);
+      console.log("update fail", response.responseText);
+    })
+    .always(() => {
+      button.querySelector(".spinner-border").classList.add("d-none");
+      button.disabled = false;
+    });
+});
+
+/*
 / Page Delete (DELETE)
 */
 $(document).on("click", ".page-delete", (event) => {
@@ -78,22 +112,40 @@ $(document).on("click", ".page-delete", (event) => {
 / Initialize Sortable 
 */
 $(function () {
-  $("#sortable").sortable({handle: '.handle'});
+  $("#sortable").sortable({ handle: ".handle", update: orderSections });
 });
 
 /*
 / Section Templates
 */
 $(".add-section").click((event) => {
-  const selected = $('#select-template :selected')
-  output(selected.val())
+  const selected = $("#select-template :selected");
+  output(selected.val());
 
+  // Use epoch time for unique id for Accordion
+  let unique = new Date().getTime();
 
-  $("#sortable").append($(`#${selected.val()}`).html());
+  $("#sortable").prepend(
+    $(`#${selected.val()}`).html().replace(/qq.*q/g, `qq${unique}q`)
+  );
 
-  // Make sure id's are unique
-  $('.crm-section').each((index, item) => {
-    const replaced = $(item).html().replace(/index/g, index)
-    $(item).html(replaced)
-  })
+  orderSections();
+});
+
+function orderSections() {
+  $(".cms-section").each((sectionIndex, sectionItem) => {
+    $(sectionItem)
+      .find("[name*='section']")
+      .each((index, item) => {
+        let name = $(item)
+          .attr("name")
+          .replace(/sections\[[^\]]*\]/, `sections[${sectionIndex}]`);
+
+        $(item).attr("name", name);
+      });
+  });
+}
+
+$(".view-draft").click((event) => {
+  console.log("view draft");
 });

@@ -1,120 +1,136 @@
-const path = require('path')
-const fs = require('fs')
-const fse = require('fs-extra')
-const express = require('express')
-const router = express.Router()
-const { body, validationResult } = require('express-validator')
-const slugify = require('slugify')
-
+const path = require("path");
+const fs = require("fs");
+const fse = require("fs-extra");
+const express = require("express");
+const router = express.Router();
+const { body, validationResult } = require("express-validator");
+const slugify = require("slugify");
+const upload = require('multer')()
+router.use(express.urlencoded({ extended: true }));
+//router.use(express.json());
 
 /*
 / Important variables
 */
-const pageDir = path.join(process.cwd(), 'pages/')
+const pageDir = path.join(process.cwd(), "pages/");
 
 /*
 / Ensure needed files/directories exist
 */
 try {
-  fse.statSync(pageDir+"info.json")
-  fse.statSync(pageDir+"home.json")
+  fse.statSync(pageDir + "info.json");
+  fse.statSync(pageDir + "home.json");
 } catch {
-  fse.writeJsonSync(pageDir+"info.json", {home: {name: "Home", slug:"home", permalink:""}})
-  fse.writeJsonSync(pageDir+"home.json", {name: "Home", slug:"home", permalink:""})
+  fse.writeJsonSync(pageDir + "info.json", {
+    home: { name: "Home", slug: "home", permalink: "" },
+  });
+  fse.writeJsonSync(pageDir + "home.json", {
+    name: "Home",
+    slug: "home",
+    permalink: "",
+  });
 }
 
 /*
 / Create (POST)
 */
-router.post('/',
-  body('name').isString().isLength({ min:2}).trim(),
+router.post(
+  "/",
+  body("name").isString().isLength({ min: 2 }).trim(),
   (req, res) => {
-    const errors = validationResult(req)
+    const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      console.log(errors)
+      console.log(errors);
       return res.status(400).json({ errors: errors.array() });
     }
 
     // Setup Page Data
-    const slug = slugify(req.body.name, {remove: /[*+~.()'"!/:@]/g, lower: true})
+    const slug = slugify(req.body.name, {
+      remove: /[*+~.()'"!/:@]/g,
+      lower: true,
+    });
     const pageData = {
       name: req.body.name,
       slug: slug,
       permalink: slug,
-    }
+    };
 
     // Update page-info
-    let pageInfo = fse.readJsonSync(pageDir+"info.json")
-    pageInfo[slug] = pageData
-    fse.writeJsonSync(pageDir+"info.json", pageInfo)
+    let pageInfo = fse.readJsonSync(pageDir + "info.json");
+    pageInfo[slug] = pageData;
+    fse.writeJsonSync(pageDir + "info.json", pageInfo);
 
     // Save Page Data to JSON
-    fse.outputJson(pageDir+pageData.permalink+".json", pageData)
-      .then(() =>{
-        res.render('admin/sections/page-table', {page: {pages: pageInfo}})
+    fse
+      .outputJson(pageDir + pageData.permalink + ".json", pageData)
+      .then(() => {
+        res.render("admin/sections/page-table", { page: { pages: pageInfo } });
       })
-      .catch(err => {
-        console.error(err.message)
-        res.status(500).end()
-      })
-
-  
-})
-
+      .catch((err) => {
+        console.error(err.message);
+        res.status(500).end();
+      });
+  }
+);
 
 /*
 / Read (GET)
 */
-router.get('/*', (req, res) => {
-  const page = path.join(pageDir, req.url)
-  console.log(page)
+router.get("/*", (req, res) => {
+  const page = path.join(pageDir, req.url);
+  console.log(page);
 
-  fse.readJson(page+".json")
-    .then(data => {
-      let template = 'default'
-      if (data.template) template = data.template
+  fse
+    .readJson(page + ".json")
+    .then((data) => {
+      let template = "default";
+      if (data.template) template = data.template;
 
-      res.render('admin/'+template, data)
+      res.render("admin/" + template, data);
     })
-    .catch(err => {
-      console.error(err.message)
-      res.status(404).end('page does not exist')
-    })
-
-
-
-})
-
+    .catch((err) => {
+      console.error(err.message);
+      res.status(404).end("page does not exist");
+    });
+});
 
 /*
 / Update (PUT)
 */
-router.put('/', (req, res) => {
-
-})
-
+router.put("*", upload.none(), (req, res) => {
+  console.log(req.body);
+    // Save Page Data to JSON
+    fse
+      .outputJson(pageDir + "test.json", req.body)
+      .then(() => {
+        res.send(req.body)
+      })
+      .catch((err) => {
+        console.error(err.message);
+        res.status(500).end();
+      });
+});
 
 /*
 / Delete (DELETE)
 */
-router.delete('/:page', (req, res) => {
-  const page = req.params.page
+router.delete("/:page", (req, res) => {
+  const page = req.params.page;
 
-  let pageInfo = fse.readJsonSync(pageDir+"info.json")
-  delete(pageInfo[page])
-  fse.writeJsonSync(pageDir+"info.json", pageInfo)
+  let pageInfo = fse.readJsonSync(pageDir + "info.json");
+  delete pageInfo[page];
+  fse.writeJsonSync(pageDir + "info.json", pageInfo);
 
-  fse.rm(pageDir+page+".json")
-    .then(()=> {
-      res.render('admin/sections/page-table', {page: {pages: pageInfo}})
+  fse
+    .rm(pageDir + page + ".json")
+    .then(() => {
+      res.render("admin/sections/page-table", { page: { pages: pageInfo } });
     })
-    .catch(err => {
-      console.error(err.message)
-      res.status(500).end()
-    })
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).end();
+    });
+});
 
-})
-
-
-module.exports = router
+module.exports = router;

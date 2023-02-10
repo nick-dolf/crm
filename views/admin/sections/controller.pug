@@ -6,9 +6,9 @@
       +button-primary('Publish Draft', "", "pencil-square")
 
     .col
-      +button-primary('View Draft', "", "binoculars")
+      +button-primary('View Draft', "view-draft", "binoculars")
       span.mx-2
-      +button-primary('Save Draft', "", "save2")
+      +button-primary('Save Draft', "page-draft-update", "save2")
 
     // Template Selection
     .col.input-group
@@ -20,29 +20,29 @@
 
 // Templates
 template(id="text-template")
-  .accordion-item.crm-section.overflow-hidden
-    .row
-      .col-1.handle.bg-light.d-flex
-        i.bi.bi-grip-horizontal
-      h2.col-11.accordion-header(id="heading-index")
-        button.accordion-button.collapsed(
-          type="button"
-          data-bs-toggle="collapse" 
-          data-bs-target="#collapse-index"
-          ) Text
-    .accordion-collapse.collapse(id="collapse-index")
-      include text
-
-template(id="column-template")
-  .accordion-item.crm-section.overflow-hidden
+  .accordion-item.cms-section.overflow-hidden
     .row
       .col-1.handle.bg-light
         i.bi.bi-grip-horizontal
-      h2.col-11.accordion-header(id="heading-index")
+      h2.col-11.accordion-header(id="headingqq0q")
         button.accordion-button.collapsed(
           type="button"
           data-bs-toggle="collapse" 
-          data-bs-target="#collapse-index"
+          data-bs-target="#collapseqq0q"
+          ) Text
+    .accordion-collapse.collapse(id="collapseqq0q")
+      include text
+
+template(id="column-template")
+  .accordion-item.cms-section.overflow-hidden
+    .row
+      .col-1.handle.bg-light
+        i.bi.bi-grip-horizontal
+      h2.col-11.accordion-header(id="headingqq0q")
+        button.accordion-button.collapsed(
+          type="button"
+          data-bs-toggle="collapse" 
+          data-bs-target="#collapseqq0q"
           ) Column
-    .accordion-collapse.collapse(id="collapse-index")
+    .accordion-collapse.collapse(id="collapseqq0q")
       include column
