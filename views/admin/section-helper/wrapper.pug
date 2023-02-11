@@ -1,3 +1,5 @@
+include /admin/components/button-danger
+
 mixin wrapper(title, index, extraClass)
 
   .accordion-item.cms-section
@@ -12,4 +14,9 @@ mixin wrapper(title, index, extraClass)
           data-bs-target=`#collapse-${index}`
           )= title
     .accordion-collapse.collapse(id=`collapse-${index}`)
-      block
+      ul.list-group.list-group-flush.accordion-body
+        li.list-group-item.d-flex.align-items-start.justify-content-between
+          block
+
+        li.list-group-item.d-flex.justify-content-end
+          +button-danger("Delete Section", "section-delete", title)

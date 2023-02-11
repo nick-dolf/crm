@@ -49,7 +49,6 @@ $(document).on("click", ".page-post", (event) => {
 / Page Update (PUT)
 */
 $(".page-draft-update").click((event) => {
-  output("Saving Draft");
   const button = event.currentTarget;
 
   button.querySelector(".spinner-border").classList.remove("d-none");
@@ -66,11 +65,13 @@ $(".page-draft-update").click((event) => {
     contentType: false,
   })
     .done((response) => {
-      output("update request was successful");
+      output("Draft Saved");
       console.log("update success", response);
+      $("#pageForm").html(response)
+      initSortable()
     })
     .fail((response) => {
-      output("update request failed", true);
+      output("Failed to save draft", true);
       console.log("update fail", response.responseText);
     })
     .always(() => {
@@ -84,7 +85,7 @@ $(".page-draft-update").click((event) => {
 */
 $(document).on("click", ".page-delete", (event) => {
   const button = event.target;
-  const deletePage = button.dataset.page;
+  const deletePage = button.dataset.cms;
   if (confirm(`Do you really want to delete ${deletePage}?`)) {
     output(`sending delete request to server: ${deletePage}`);
 
@@ -111,14 +112,15 @@ $(document).on("click", ".page-delete", (event) => {
 /*
 / Initialize Sortable 
 */
-$(function () {
+function initSortable () {
   $("#sortable").sortable({ handle: ".handle", update: orderSections });
-});
+}
+initSortable()
 
 /*
 / Section Templates
 */
-$(".add-section").click((event) => {
+$(".section-add").click((event) => {
   const selected = $("#select-template :selected");
   output(selected.val());
 
@@ -130,6 +132,17 @@ $(".add-section").click((event) => {
   );
 
   orderSections();
+});
+
+$(document).on("click", ".section-delete", (event) => {
+  const button = event.currentTarget;
+  const deleteSection = button.dataset.cms;
+
+  if (confirm(`Do you really want to delete ${deleteSection} section?`)) {
+    output(`deleted ${deleteSection} section`);
+    button.closest(".cms-section").remove(0);
+    orderSections();
+  }
 });
 
 function orderSections() {

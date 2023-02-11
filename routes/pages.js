@@ -105,7 +105,8 @@ router.put("/*", upload.none(), (req, res) => {
   fse
     .outputJson(page + ".json", req.body)
     .then(() => {
-      res.send(req.body);
+      console.log(req.body)
+      res.render("templates/default/admin",{page: req.body});
     })
     .catch((err) => {
       console.error(err.message);
