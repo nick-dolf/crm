@@ -1,0 +1,7 @@
+mixin text(content, index, extraClass)
+  +wrapper("Text", index, extraClass)
+    ul.list-group-flush.accordion-body
+      li.list-group-item.d-flex.align-items-start.justify-content-between
+        input(type="text" name=`sections[${index}][type]` value="text" hidden)
+        textarea.form-control.col-10(name=`sections[${index}][paragraph]` rows=8)
+          = content.paragraph

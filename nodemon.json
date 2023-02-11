@@ -1,4 +1,5 @@
 {
   "watch": ["app.js", "views", "routes", "admin"],
-  "ext": "js, scss, json, pug, css"
+  "ext": "js, scss, json, pug, css",
+  "ignore": "views/admin/section-helper/includes.pug"
 }

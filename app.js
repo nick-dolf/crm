@@ -15,6 +15,16 @@ const config = fse.readJsonSync("config.json");
 
 // Global site variable available to template engine
 app.locals.site = {};
+app.locals.site.sections = fse.readdirSync(app.get("views") + "/sections");
+let sectionIncludes = app.locals.site.sections.map(section => {
+  return `include /sections/${section}/admin`
+}).join("\n")
+
+console.log(sectionIncludes)
+fse.outputFileSync(app.get("views") + "/admin/section-helper/includes.pug", sectionIncludes)
+
+// Basedir needed for absolute paths
+app.locals.basedir = app.get("views");
 
 // Remove old site directory
 fse.removeSync("site");
@@ -64,18 +74,24 @@ fse.outputFile("site/css/style.css", result.css.toString()).catch((err) => {
   console.error(err);
 });
 
-// Setup template Engine
+/*
+/Setup template Engine
+*/
 app.set("view engine", "pug");
 
-app.render("site/home", { page: { title: "test" } }, (err, html) => {
-  if (err) {
-    console.error(err);
-  } else {
-    fse.outputFile("site/index.html", html).catch((err) => {
-      console.error(err);
-    });
-  }
-});
+// app.render(
+//   "templates/default/site",
+//   { page: { title: "test" } },
+//   (err, html) => {
+//     if (err) {
+//       console.error(err);
+//     } else {
+//       fse.outputFile("site/index.html", html).catch((err) => {
+//         console.error(err);
+//       });
+//     }
+//   }
+// );
 
 /*
 / Admin Route

@@ -5,7 +5,7 @@ const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const slugify = require("slugify");
-const upload = require('multer')()
+const upload = require("multer")();
 router.use(express.urlencoded({ extended: true }));
 //router.use(express.json());
 
@@ -86,8 +86,8 @@ router.get("/*", (req, res) => {
     .then((data) => {
       let template = "default";
       if (data.template) template = data.template;
-
-      res.render("admin/" + template, data);
+      console.log(data)
+      res.render("admin/" + template, {page: data});
     })
     .catch((err) => {
       console.error(err.message);
@@ -98,18 +98,19 @@ router.get("/*", (req, res) => {
 /*
 / Update (PUT)
 */
-router.put("*", upload.none(), (req, res) => {
-  console.log(req.body);
-    // Save Page Data to JSON
-    fse
-      .outputJson(pageDir + "test.json", req.body)
-      .then(() => {
-        res.send(req.body)
-      })
-      .catch((err) => {
-        console.error(err.message);
-        res.status(500).end();
-      });
+router.put("/*", upload.none(), (req, res) => {
+  const page = path.join(pageDir, req.url)
+  console.log(page);
+  // Save Page Data to JSON
+  fse
+    .outputJson(page + ".json", req.body)
+    .then(() => {
+      res.send(req.body);
+    })
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).end();
+    });
 });
 
 /*

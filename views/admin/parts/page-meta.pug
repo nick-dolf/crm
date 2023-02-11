@@ -9,10 +9,10 @@ mixin meta-item(id, content, rows, max, label, text)
           = content
 
 ul.list-group.list-group-flush.accordion-body
-  +meta-item('title', title, 2, 60,
+  +meta-item('title', page.title, 2, 60,
                 'Title',
                 "Max 60 characters.")
-  +meta-item('description', description, 3, 150,
+  +meta-item('description', page.description, 3, 150,
                 "Description",
                 "Max 150 characters.")
   li.list-group-item 

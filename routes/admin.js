@@ -22,7 +22,7 @@ const user = {
 router.use('/css', express.static('node_modules/bootstrap/dist/css'))
 
 router.get('/login', (req, res) => {
-  res.render('admin/login', { heading: 'Login' })
+  res.render('templates/login/admin', { heading: 'Login' })
 })
 
 router.post('/login', (req, res) => {

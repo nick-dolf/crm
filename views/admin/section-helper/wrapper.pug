@@ -1,0 +1,15 @@
+mixin wrapper(title, index, extraClass)
+
+  .accordion-item.cms-section
+    .row
+      .col-1.handle
+        i.bi.bi-grip-horizontal
+      h2.col-11.accordion-header(id=`heading-${index}`)
+        button.accordion-button.collapsed(
+          class=extraClass
+          type="button"
+          data-bs-toggle="collapse" 
+          data-bs-target=`#collapse-${index}`
+          )= title
+    .accordion-collapse.collapse(id=`collapse-${index}`)
+      block

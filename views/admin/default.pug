@@ -1,4 +1,6 @@
 extends layouts/default
+include /admin/section-helper/includes
+include /admin/section-helper/wrapper
 
 block header 
   include parts/header-dashboard
@@ -28,3 +30,6 @@ block main
         include parts/page-style
 
     #sortable
+      if page.sections
+        for section, index in page.sections
+          +#{section.type}(section, index)

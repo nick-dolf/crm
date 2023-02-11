@@ -8,22 +8,22 @@ mixin style-item(id, value, label, text)
         input.form-control.form-control-color(type="color" name=id id=id value=value)
 
 ul.accordion-body.list-group.list-group-flush
-  +style-item('textColor', textColor,
+  +style-item('textColor', page.textColor,
               'Text Color', 
               "Main color for text.")
-  +style-item('linkColor', linkColor,
+  +style-item('linkColor', page.linkColor,
               'Link Color',
               "Color of links.")
-  +style-item('linkHoverColor', linkHoverColor,
+  +style-item('linkHoverColor', page.linkHoverColor,
               'Hover Color',
               "Color of link on hover.")
-  +style-item('topColor', topColor,
+  +style-item('topColor', page.topColor,
               'Top Color',
               "Top gradient color.")
-  +style-item('bottomColor', bottomColor,
+  +style-item('bottomColor', page.bottomColor,
               'Bottom Color',
               "Bottom gradient color.")
-  +style-item('modalColor', modalColor,
+  +style-item('modalColor', page.modalColor,
               'Modal Color',
               "Popup color.")
   li.list-group-item 
