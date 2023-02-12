@@ -1,6 +1,10 @@
 include /admin/section-helper/includes
 include /admin/section-helper/wrapper
 
+input(name="slug" value=page.slug hidden)
+input(name="name" value=page.name hidden)
+input(name="permalink" value=page.permalink hidden)
+
 .accordion-item
   h2.accordion-header(id="headingOne")
     button.accordion-button.collapsed(

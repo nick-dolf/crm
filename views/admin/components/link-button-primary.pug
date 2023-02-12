@@ -1,0 +1,7 @@
+mixin link-button-primary(link, text, extraClass, icon)
+
+  a.btn.btn-primary(href=link class=extraClass)
+    if icon
+      i.me-2.bi(class=`bi-${icon}`)
+    span= text
+    span.ms-2.spinner-border.spinner-border-sm.d-none

@@ -1,3 +1,5 @@
+include /admin/components/link-button-primary
+
 .py-2.px-4.bg-dark.rounded-bottom.border-top
   .row
     .col
@@ -6,7 +8,7 @@
       +button-primary('Publish Draft', "", "pencil-square")
 
     .col
-      +button-primary('View Draft', "view-draft", "binoculars")
+      +link-button-primary(site.baseURL+`admin/drafts/${page.permalink}`,'View Draft', "view-draft", "binoculars")
       span.mx-2
       +button-primary('Save Draft', "page-draft-update", "save2")
 

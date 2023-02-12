@@ -22,24 +22,24 @@ function output(message, fail) {
 $(document).on("click", ".page-post", (event) => {
   const postData = $("form").serialize();
 
-  const button = event.target;
-  output(`sending post request to server: ${postData}`);
+  const button = event.currentTarget;
+  output(`Creating Page: ${postData}`);
 
-  button.lastChild.classList.remove("d-none");
+  button.querySelector(".spinner-border").classList.remove("d-none");
   button.disabled = true;
 
   $.post("pages", postData)
     .done((response) => {
-      output("post request was successful");
+      output("Page Created");
       console.log(response);
       $("#base").html(response);
     })
     .fail((response) => {
-      output("post request failed", true);
+      output("Page creation failed", true);
       console.log("fail", response);
     })
     .always(() => {
-      button.lastChild.classList.add("d-none");
+      button.querySelector(".spinner-border").classList.add("d-none");
       button.disabled = false;
       $(".btn-close").click();
     });
@@ -67,8 +67,8 @@ $(".page-draft-update").click((event) => {
     .done((response) => {
       output("Draft Saved");
       console.log("update success", response);
-      $("#pageForm").html(response)
-      initSortable()
+      $("#pageForm").html(response);
+      initSortable();
     })
     .fail((response) => {
       output("Failed to save draft", true);
@@ -112,10 +112,10 @@ $(document).on("click", ".page-delete", (event) => {
 /*
 / Initialize Sortable 
 */
-function initSortable () {
+function initSortable() {
   $("#sortable").sortable({ handle: ".handle", update: orderSections });
 }
-initSortable()
+initSortable();
 
 /*
 / Section Templates

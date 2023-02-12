@@ -1,5 +1,4 @@
 const path = require("path");
-const fs = require("fs");
 const fse = require("fs-extra");
 const express = require("express");
 const router = express.Router();
@@ -65,7 +64,7 @@ router.post(
     fse
       .outputJson(pageDir + pageData.permalink + ".json", pageData)
       .then(() => {
-        res.render("admin/sections/page-table", { page: { pages: pageInfo } });
+        res.render("admin/parts/page-table", { page: { pages: pageInfo } });
       })
       .catch((err) => {
         console.error(err.message);
@@ -79,14 +78,13 @@ router.post(
 */
 router.get("/*", (req, res) => {
   const page = path.join(pageDir, req.url);
-  console.log(page);
 
   fse
     .readJson(page + ".json")
     .then((data) => {
       let template = "default";
       if (data.template) template = data.template;
-      console.log(data)
+
       res.render("admin/" + template, {page: data});
     })
     .catch((err) => {
@@ -127,7 +125,7 @@ router.delete("/:page", (req, res) => {
   fse
     .rm(pageDir + page + ".json")
     .then(() => {
-      res.render("admin/sections/page-table", { page: { pages: pageInfo } });
+      res.render("admin/parts/page-table", { page: { pages: pageInfo } });
     })
     .catch((err) => {
       console.error(err.message);

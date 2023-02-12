@@ -86,6 +86,7 @@ router.use('/js', express.static('node_modules/jquery-ui/dist'))
 router.use('/js', express.static('admin/js'))
 // routes
 router.use('/pages', require('./pages'))
+router.use('/drafts', require('./drafts'))
 
 // router.use('/images', require('./images'))
 // router.use('/src/assets/images', express.static('src/assets/images'))
