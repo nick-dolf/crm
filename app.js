@@ -12,18 +12,45 @@ console.log("\n--\nCRM Starting\n--");
 / Site Configuration
 */
 const config = fse.readJsonSync("config.json");
+const pageDir = path.join(process.cwd(), "pages/");
+
+// Ensure needed files/directories exist
+try {
+  fse.statSync(pageDir + "home.json");
+} catch {
+  fse.writeJsonSync(pageDir + "home.json", {
+    name: "Home",
+    slug: "home",
+    permalink: "",
+    published: new Date().toString(),
+  });
+}
 
 // Global site variable available to template engine
 app.locals.site = {};
+app.locals.site.pages = fse.readdirSync(pageDir).map((entry) => {
+  const pageEntry = fse.readJsonSync(pageDir + entry);
+  return {
+    name: pageEntry.name,
+    slug: pageEntry.slug,
+    permalink: pageEntry.permalink,
+    published: pageEntry.published,
+  };
+});
 app.locals.site.sections = fse.readdirSync(app.get("views") + "/sections");
-let sectionIncludes = app.locals.site.sections.map(section => {
-  return `include /sections/${section}/admin`
-}).join("\n")
+let sectionIncludes = app.locals.site.sections
+  .map((section) => {
+    return `include /sections/${section}/admin`;
+  })
+  .join("\n");
 
-console.log(sectionIncludes)
-fse.outputFileSync(app.get("views") + "/admin/section-helper/includes.pug", sectionIncludes)
 
-// Basedir needed for absolute paths
+fse.outputFileSync(
+  app.get("views") + "/admin/section-helper/includes.pug",
+  sectionIncludes
+);
+
+// Basedir needed for absolute paths in templates
 app.locals.basedir = app.get("views");
 
 // Remove old site directory

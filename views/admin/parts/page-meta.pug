@@ -5,7 +5,7 @@ mixin meta-item(id, content, rows, max, label, text)
         label.form-label.m-0(for=id)= label
         div.form-text.m-0= text
       div.col-md-9
-        textarea.form-control(rows= rows cols="60" maxlength=max name=id id=id)
+        textarea.form-control(rows= rows cols="60" maxlength=max name=`details[0][${id}]` id=id)
           = content
 
 ul.list-group.list-group-flush.accordion-body

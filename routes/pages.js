@@ -14,23 +14,6 @@ router.use(express.urlencoded({ extended: true }));
 const pageDir = path.join(process.cwd(), "pages/");
 
 /*
-/ Ensure needed files/directories exist
-*/
-try {
-  fse.statSync(pageDir + "info.json");
-  fse.statSync(pageDir + "home.json");
-} catch {
-  fse.writeJsonSync(pageDir + "info.json", {
-    home: { name: "Home", slug: "home", permalink: "" },
-  });
-  fse.writeJsonSync(pageDir + "home.json", {
-    name: "Home",
-    slug: "home",
-    permalink: "",
-  });
-}
-
-/*
 / Create (POST)
 */
 router.post(
@@ -49,22 +32,33 @@ router.post(
       remove: /[*+~.()'"!/:@]/g,
       lower: true,
     });
+
+    // Check if page already exists
+    if (
+      req.app.locals.site.pages.some((item) => {
+        return item.slug === slug;
+      })
+    ) {
+      return res.status(403).send("Page with that name already exists");
+    }
+
     const pageData = {
       name: req.body.name,
       slug: slug,
       permalink: slug,
+      published: false,
     };
 
-    // Update page-info
-    let pageInfo = fse.readJsonSync(pageDir + "info.json");
-    pageInfo[slug] = pageData;
-    fse.writeJsonSync(pageDir + "info.json", pageInfo);
+    // Update pages
+    req.app.locals.site.pages.push(pageData);
 
     // Save Page Data to JSON
     fse
       .outputJson(pageDir + pageData.permalink + ".json", pageData)
       .then(() => {
-        res.render("admin/parts/page-table", { page: { pages: pageInfo } });
+        res.render("admin/parts/page-table", {
+          page: { pages: req.app.locals.site.pages },
+        });
       })
       .catch((err) => {
         console.error(err.message);
@@ -85,7 +79,7 @@ router.get("/*", (req, res) => {
       let template = "default";
       if (data.template) template = data.template;
 
-      res.render("admin/" + template, {page: data});
+      res.render("admin/" + template, { page: data });
     })
     .catch((err) => {
       console.error(err.message);
@@ -97,14 +91,14 @@ router.get("/*", (req, res) => {
 / Update (PUT)
 */
 router.put("/*", upload.none(), (req, res) => {
-  const page = path.join(pageDir, req.url)
+  const page = path.join(pageDir, req.url);
   console.log(page);
   // Save Page Data to JSON
   fse
     .outputJson(page + ".json", req.body)
     .then(() => {
-      console.log(req.body)
-      res.render("templates/default/admin",{page: req.body});
+      console.log(req.body);
+      res.render("templates/default/admin", { page: req.body });
     })
     .catch((err) => {
       console.error(err.message);
@@ -118,14 +112,21 @@ router.put("/*", upload.none(), (req, res) => {
 router.delete("/:page", (req, res) => {
   const page = req.params.page;
 
-  let pageInfo = fse.readJsonSync(pageDir + "info.json");
-  delete pageInfo[page];
-  fse.writeJsonSync(pageDir + "info.json", pageInfo);
+  if (page === "home") {
+    res.status(403).send("Home page may not be deleted");
+    return;
+  }
+
+  req.app.locals.site.pages = req.app.locals.site.pages.filter((item) => {
+    return item.slug != page;
+  });
 
   fse
     .rm(pageDir + page + ".json")
     .then(() => {
-      res.render("admin/parts/page-table", { page: { pages: pageInfo } });
+      res.render("admin/parts/page-table", {
+        page: { pages: req.app.locals.site.pages },
+      });
     })
     .catch((err) => {
       console.error(err.message);

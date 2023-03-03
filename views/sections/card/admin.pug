@@ -1,0 +1,7 @@
+mixin card(content, index, extraClass)
+  +wrapper("Card", index, extraClass)
+    input(type="text" name=`sections[${index}][type]` value="card" hidden)
+    
+    input.form-control(name=`sections[${index}][heading]` value=content.heading)
+    textarea.form-control.col-10(name=`sections[${index}][paragraph]` rows=8)
+      = content.paragraph

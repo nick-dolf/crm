@@ -2,9 +2,15 @@ include button-danger
 
 mixin page-row(entry)
   li.list-group-item.d-flex.align-items-center.justify-content-between
-    a.h4.link-dark(href=site.baseURL+entry.permalink)= entry.name
-    p Published
-      i.bi.bi-check-circle
+    if (entry.published)
+      a.h4.link-dark(href=site.baseURL+entry.permalink)= entry.name
+      span Published  
+        i.bi.bi-check-circle-fill.text-success
+    else
+      h4= entry.name
+      span Not published  
+        i.bi.bi-x-circle-fill.text-warning
+
     div
       a.btn.btn-primary.mx-4(href=site.baseURL+"admin/pages/"+entry.slug) Edit
       +button-danger('Delete', 'page-delete', entry.slug)

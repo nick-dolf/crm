@@ -35,8 +35,8 @@ $(document).on("click", ".page-post", (event) => {
       $("#base").html(response);
     })
     .fail((response) => {
-      output("Page creation failed", true);
-      console.log("fail", response);
+      output("Page creation failed: "+response.responseText, true);
+      console.log("fail", response.responseText);
     })
     .always(() => {
       button.querySelector(".spinner-border").classList.add("d-none");
@@ -99,8 +99,8 @@ $(document).on("click", ".page-delete", (event) => {
         $("#base").html(response);
       })
       .fail((response) => {
-        output("delete request failed", true);
-        console.log("delete fail", response.responseText);
+        output("delete request failed: "+response.responseText, true);
+        console.log("delete failed:", response.responseText);
       })
       .always(() => {
         button.lastChild.classList.add("d-none");
