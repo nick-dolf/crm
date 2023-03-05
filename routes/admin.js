@@ -49,36 +49,11 @@ router.use((req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-  let pageData = { page: { heading: "Dashboard", pages: [] } };
+  let pageData = {
+    page: { heading: "Dashboard", pages: req.app.locals.site.pages },
+  };
 
-  pageData.page.pages = req.app.locals.site.pages;
-  //console.log(pageData)
   res.render("admin/dashboard", pageData);
-
-  // fse.readJson(pageDir+"info.json")
-  //   .then(data => {
-  //     pageData.page.pages = data
-  //     res.render('admin/dashboard', pageData)
-  //   })
-  //   .catch(err => {
-  //     console.error(err.message)
-  //     res.status(500).end()
-  //   })
-
-  // fse.readdir(pageDir, {withFileTypes: true})
-  //   .then(dirEntries => {
-  //     dirEntries.forEach(entry => {
-  //       if (entry.isFile()) {
-  //         pageData.page.pages.push(path.parse(entry.name).name)
-  //       }
-  //     })
-  //     console.log(pageData)
-  //     res.render('admin/dashboard', pageData)
-  //   })
-  //   .catch(err => {
-  //     console.error(err.message)
-  //     res.status(404).render('404')
-  //   })
 });
 
 /*
@@ -94,10 +69,6 @@ router.use("/js", express.static("admin/js"));
 // routes
 router.use("/pages", require("./pages"));
 router.use("/drafts", require("./drafts"));
-
-// router.use('/images', require('./images'))
-// router.use('/src/assets/images', express.static('src/assets/images'))
-// router.use('/assets', express.static('assets'))
-// router.use('/src/assets/js', express.static('src/assets/js'))
+router.use("/publish", require("./publish"));
 
 module.exports = router;

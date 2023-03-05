@@ -1,5 +1,7 @@
 extends /layouts/default
-
+include /section-helper/includes
 
 block main
-  p= page.description
+    if page.sections
+      for section, index in page.sections
+        +#{section.type}(section)

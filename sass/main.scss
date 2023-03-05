@@ -1,3 +1,19 @@
+@import 'sections/includes';
+
 body {
-  background-color: red;
+  margin: 0;
+  background-color: white;
+}
+
+main {
+  background-color: blue;
+  border-radius: 20px;
+  color: white;
+  margin: 0 auto;
+  max-width: 1200px;
+  min-height: 100vh;
+
+  :first-child {
+    margin-top: 0;
+  }
 }

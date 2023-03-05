@@ -2,7 +2,7 @@ include button-danger
 
 mixin page-row(entry)
   li.list-group-item.d-flex.align-items-center.justify-content-between
-    if (entry.published)
+    if (entry.publishedDate)
       a.h4.link-dark(href=site.baseURL+entry.permalink)= entry.name
       span Published  
         i.bi.bi-check-circle-fill.text-success

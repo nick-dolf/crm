@@ -6,7 +6,7 @@ const router = express.Router();
 /*
 / Important variables
 */
-const pageDir = path.join(process.cwd(), "pages/");
+const pageDir = path.join(process.cwd(), "pages/drafts/");
 
 /*
 / Read (GET)

@@ -1,4 +1,5 @@
 {
   "productionSite": "",
-  "stagingFolder" : ""
+  "stagingDir": "",
+  "siteDir": "site"
 }

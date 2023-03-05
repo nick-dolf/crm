@@ -35,7 +35,7 @@ $(document).on("click", ".page-post", (event) => {
       $("#base").html(response);
     })
     .fail((response) => {
-      output("Page creation failed: "+response.responseText, true);
+      output("Page creation failed: " + response.responseText, true);
       console.log("fail", response.responseText);
     })
     .always(() => {
@@ -99,11 +99,49 @@ $(document).on("click", ".page-delete", (event) => {
         $("#base").html(response);
       })
       .fail((response) => {
-        output("delete request failed: "+response.responseText, true);
+        output("delete request failed: " + response.responseText, true);
         console.log("delete failed:", response.responseText);
       })
       .always(() => {
         button.lastChild.classList.add("d-none");
+        button.disabled = false;
+      });
+  }
+});
+
+/*
+/ Publish (POST)
+*/
+$(".page-publish-draft").click((event) => {
+  const button = event.currentTarget;
+
+  const publishPage = button.dataset.cms;
+  if (confirm(`Do you really want to publish ${publishPage}?`)) {
+    output(`sending publish request to server: ${publishPage}`);
+
+    button.querySelector(".spinner-border").classList.remove("d-none");
+    button.disabled = true;
+
+    const formData = new FormData(document.getElementById("pageForm"));
+
+    $.ajax({
+      url: `../publish/${publishPage}`,
+      type: "POST",
+      data: formData,
+      enctype: "multipart/form-data",
+      processData: false,
+      contentType: false,
+    })
+      .done((response) => {
+        output("Published: " + response);
+        console.log("publish success", response);
+      })
+      .fail((response) => {
+        output("Failed to publish: " + response.responseText, true);
+        console.log("publish fail", response.responseText);
+      })
+      .always(() => {
+        button.querySelector(".spinner-border").classList.add("d-none");
         button.disabled = false;
       });
   }

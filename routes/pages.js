@@ -11,7 +11,8 @@ router.use(express.urlencoded({ extended: true }));
 /*
 / Important variables
 */
-const pageDir = path.join(process.cwd(), "pages/");
+const pageDir = path.join(process.cwd(), "pages/drafts/");
+const publishedDir = path.join(process.cwd(), "pages/published/");
 
 /*
 / Create (POST)
@@ -46,7 +47,8 @@ router.post(
       name: req.body.name,
       slug: slug,
       permalink: slug,
-      published: false,
+      publishedDate: false,
+      draftedDate: new Date().toString(),
     };
 
     // Update pages
@@ -90,15 +92,25 @@ router.get("/*", (req, res) => {
 /*
 / Update (PUT)
 */
-router.put("/*", upload.none(), (req, res) => {
-  const page = path.join(pageDir, req.url);
-  console.log(page);
+router.put("/:page", upload.none(), (req, res) => {
+  const page = path.join(pageDir, req.params.page);
+
+  // Update pages
+  let pageInfo = {};
+  req.app.locals.site.pages = req.app.locals.site.pages.filter((item) => {
+    if (item.slug == req.params.page) {
+      item.draftedDate = new Date().toString();
+      pageInfo = item;
+    }
+    return item;
+  });
+  const pageData = { ...pageInfo, ...req.body };
+
   // Save Page Data to JSON
   fse
-    .outputJson(page + ".json", req.body)
+    .outputJson(page + ".json", pageData)
     .then(() => {
-      console.log(req.body);
-      res.render("templates/default/admin", { page: req.body });
+      res.render("templates/default/admin", { page: pageData });
     })
     .catch((err) => {
       console.error(err.message);
@@ -117,7 +129,9 @@ router.delete("/:page", (req, res) => {
     return;
   }
 
+  let published = false;
   req.app.locals.site.pages = req.app.locals.site.pages.filter((item) => {
+    if (item.slug == page && item.publishedDate) published = true;
     return item.slug != page;
   });
 
@@ -132,6 +146,15 @@ router.delete("/:page", (req, res) => {
       console.error(err.message);
       res.status(500).end();
     });
+
+  if (published) {
+    fse
+    .rm(publishedDir + page + ".json")
+    .catch((err) => {
+      console.error(err.message);
+      res.status(500).end();
+    });
+  }
 });
 
 module.exports = router;

@@ -1,6 +1,6 @@
-mixin button-primary(text, extraClass, icon)
+mixin button-primary(text, extraClass, icon, data)
 
-  button.btn.btn-primary(class=extraClass type='button')
+  button.btn.btn-primary(class=extraClass type='button' data-cms=data)
     if icon
       i.me-2.bi(class=`bi-${icon}`)
     span= text
