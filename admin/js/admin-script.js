@@ -135,6 +135,8 @@ $(".page-publish-draft").click((event) => {
       .done((response) => {
         output("Published: " + response);
         console.log("publish success", response);
+        $(".not-published").addClass("d-none");
+        $(".view-published").removeClass("d-none");
       })
       .fail((response) => {
         output("Failed to publish: " + response.responseText, true);

@@ -1,11 +1,13 @@
 const path = require("path");
 const fse = require("fs-extra");
+const app = require("../app");
 const express = require("express");
 const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const slugify = require("slugify");
 const upload = require("multer")();
 router.use(express.urlencoded({ extended: true }));
+
 //router.use(express.json());
 
 /*
@@ -13,6 +15,7 @@ router.use(express.urlencoded({ extended: true }));
 */
 const pageDir = path.join(process.cwd(), "pages/drafts/");
 const publishedDir = path.join(process.cwd(), "pages/published/");
+const siteDir = app.locals.siteDir;
 
 /*
 / Create (POST)
@@ -148,9 +151,12 @@ router.delete("/:page", (req, res) => {
     });
 
   if (published) {
-    fse
-    .rm(publishedDir + page + ".json")
-    .catch((err) => {
+    fse.rm(publishedDir + page + ".json").catch((err) => {
+      console.error(err.message);
+      res.status(500).end();
+    });
+
+    fse.remove(siteDir + "/" + page).catch((err) => {
       console.error(err.message);
       res.status(500).end();
     });

@@ -4,11 +4,15 @@ include /admin/components/link-button-primary
   .row
     .col
       if page.publishedDate
-        +link-button-primary(site.baseURL+`${page.permalink}`,'View Published', "", "binoculars")
-      else
-        button.btn.btn-primary(class=extraClass type='button' disabled)  
+        +link-button-primary(site.baseURL+`${page.permalink}`,'View Published', "view-published", "binoculars")
+        button.btn.btn-primary.d-none(class="not-published" type='button' disabled)  
           i.me-2.bi(class=`bi-binoculars`)
-          span View Published
+          span Not Published
+      else
+        +link-button-primary(site.baseURL+`${page.permalink}`,'View Published', "view-published d-none", "binoculars")
+        button.btn.btn-primary(class="not-published" type='button' disabled)  
+          i.me-2.bi(class=`bi-binoculars`)
+          span Not Published
           
       span.mx-2
       if page.permalink

@@ -1,16 +1,31 @@
 include button-danger
 
 mixin page-row(entry)
-  li.list-group-item.d-flex.align-items-center.justify-content-between
-    if (entry.publishedDate)
-      a.h4.link-dark(href=site.baseURL+entry.permalink)= entry.name
-      span Published  
-        i.bi.bi-check-circle-fill.text-success
-    else
-      h4= entry.name
-      span Not published  
-        i.bi.bi-x-circle-fill.text-warning
+  li.list-group-item
+    .row
+      if (entry.publishedDate)
+        .col-sm-4
+          a.h4.link-dark(href=site.baseURL+entry.permalink)= entry.name
+        .col-sm-4.my-2
+          span Published  
+            i.bi.bi-check-circle-fill.text-success
+      else
+        .col-sm-4
+          h4= entry.name
+        .col-sm-4.my-2
+          span Not published  
+          i.bi.bi-x-circle-fill.text-warning
 
-    div
-      a.btn.btn-primary.mx-4(href=site.baseURL+"admin/pages/"+entry.slug) Edit
-      +button-danger('Delete', 'page-delete', entry.slug)
+      .col-sm-4.d-sm-flex.justify-content-center.justify-content-sm-end
+        .btn-group
+          a.btn.btn-primary(href=site.baseURL+"admin/pages/"+entry.slug) Edit
+          button.btn.btn-primary.dropdown-toggle.dropdown-toggle-split(data-bs-toggle="dropdown" aria-expanded="false" type=button)
+            span.visually-hidden Toggle Dropdown
+          ul.dropdown-menu
+            li
+              +button-danger('Delete', ' dropdown-item page-delete', entry.slug)
+        
+        
+        
+        
+        //+button-danger('Delete', 'page-delete', entry.slug)
