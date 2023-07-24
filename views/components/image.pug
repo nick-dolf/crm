@@ -1,0 +1,10 @@
+mixin image(img, widths, alt)
+  - 
+    const imgDeets = site.images[img]
+    publishImg(img, widths, imgDeets)
+    const imgName = img.replace(/\.[^.]+$/, '')+"-"+imgDeets.uploadEpochTime 
+  
+  picture
+    for width in widths
+      source(type="image/webp" srcset=`${site.baseURL}assets/images/${imgName}-${width}.webp`)
+    img(src=`${site.baseURL}assets/images/${imgName}-${widths[0]}.jpg` width=300 height=300 alt=alt)

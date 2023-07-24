@@ -1,0 +1,32 @@
+include /admin/block-helper/controller
+
+mixin intro(content, index, extraClass)
+  +wrapper("Intro", index, "cms-section", extraClass)
+    input(type="text" name=`sections[${index}][type]` value="intro" hidden)
+
+    div.row.gy-1
+      div.col-md-4.container
+        button.image-set-active.btn.btn-outline-secondary(data-bs-toggle="modal" data-bs-target="#imageModal" type="button")
+          img.img-fluid.img-thumbnail( height=150 width=150 
+          src= site.baseURL + `admin/assets/images/original/thumb/${content.image}` )
+
+          input.form-control(name=`sections[${index}][image]` value=content.image type="hidden")
+
+        <br>
+        label.form-label(for=`sections[${index}][alt]`) Alt Text
+        input.form-control(type="text" name=`sections[${index}][alt]` value=content.alt)
+
+      div.col-md-8
+        label.form-label(for=`sections[${index}][heading1]`) Heading 1
+        input.form-control(type="text" name=`sections[${index}][heading1]` value=content.heading1)
+
+        label.form-label(for=`sections[${index}][heading2]`) Heading 2
+        input.form-control(type="text" name=`sections[${index}][heading2]` value=content.heading2)
+        
+        label.form-label Skills
+        input.form-control(type="text" name=`sections[${index}][skills]` value=content.skills)
+
+        label.form-label(for=`sections[${index}][paragraph]`) Paragraph
+        textarea.form-control.col-10(name=`sections[${index}][paragraph]` rows=8)
+          = content.paragraph
+      

@@ -24,7 +24,7 @@ const user = {
 router.use("/css", express.static("node_modules/bootstrap/dist/css"));
 
 router.get("/login", (req, res) => {
-  res.render("templates/login/admin", { heading: "Login" });
+  res.render("admin/login", { heading: "Login" });
 });
 
 router.post("/login", (req, res) => {
@@ -66,9 +66,11 @@ router.use("/js", express.static("node_modules/bootstrap/dist/js"));
 router.use("/js", express.static("node_modules/jquery/dist"));
 router.use("/js", express.static("node_modules/jquery-ui/dist"));
 router.use("/js", express.static("admin/js"));
+router.use("/assets/images", express.static("images"));
 // routes
 router.use("/pages", require("./pages"));
 router.use("/drafts", require("./drafts"));
 router.use("/publish", require("./publish"));
+router.use("/images", require("./images"));
 
 module.exports = router;

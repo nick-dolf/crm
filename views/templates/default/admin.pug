@@ -1,5 +1,7 @@
 include /admin/section-helper/includes
 include /admin/section-helper/wrapper
+include /admin/block-helper/wrapper
+
 
 .accordion-item
   h2.accordion-header(id="headingOne")
@@ -21,6 +23,8 @@ include /admin/section-helper/wrapper
   .accordion-collapse.collapse(id="collapseTwo")
     include /admin/parts/page-style
 
+
+include /admin/section-helper/controller
 #sortable
   if page.sections
     for section, index in page.sections

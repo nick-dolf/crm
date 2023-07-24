@@ -40,18 +40,21 @@ router.post(
     // Check if page already exists
     if (
       req.app.locals.site.pages.some((item) => {
-        return item.slug === slug;
+        setTimeout(() => {return item.slug === slug},0);
       })
     ) {
+      console.log('exists')
       return res.status(403).send("Page with that name already exists");
     }
-
+    console.log('test')
+    
     const pageData = {
       name: req.body.name,
       slug: slug,
       permalink: slug,
       publishedDate: false,
       draftedDate: new Date().toString(),
+      details: {}
     };
 
     // Update pages
@@ -108,6 +111,7 @@ router.put("/:page", upload.none(), (req, res) => {
     return item;
   });
   const pageData = { ...pageInfo, ...req.body };
+  console.log(pageData)
 
   // Save Page Data to JSON
   fse

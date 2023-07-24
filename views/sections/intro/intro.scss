@@ -1,0 +1,56 @@
+.intro {
+  @include spacing-std;
+
+
+  .columns {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 32px;
+
+    @include tablet {
+      flex-direction: row;
+    }
+  }
+
+  .column-one {
+
+    @include tablet {
+      width: 60%;
+    }
+
+  }
+
+  .column-two {
+
+    @include tablet {
+
+      width: 40%;
+    }
+
+    img {
+      display: block;
+      margin: auto;
+      width: 100%;
+      height: auto;
+      max-width: 300px;
+      clip-path: circle();
+    }
+  }
+
+  .skills {
+    font-weight: 700;
+    margin: auto;
+    margin-top: 24px;
+    padding: 32px 8px 24px 32px;
+    background-color: $accent1;
+    color: black;
+    border-radius: 20px;
+    column-count: 2;
+    column-gap: 20px;
+
+    width: 100%;
+    max-width: 300px;
+
+  }
+}

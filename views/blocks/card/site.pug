@@ -1,0 +1,22 @@
+include /components/picture-screenshot
+
+mixin card(content)
+  div.card
+    
+    a(href=content.link)
+      .image-container
+        +picture-screenshot(content.image, content.alt)
+
+
+    .text-container
+      
+      a(href=content.github aria-label="Gitbhub repo")
+        svg(viewbox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" )
+          use(xlink:href=site.baseURL+"assets/svg/sprites.svg#github")
+      != md(content.subtext)
+    
+    if content.skills
+      .skill-container
+        - let skills = content.skills.split(" ")
+          for skill in skills
+            span.pill= skill

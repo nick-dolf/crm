@@ -1,42 +1,15 @@
-include /admin/components/link-button-primary
+include /admin/components/button-primary
 
-.py-2.px-4.bg-dark.rounded-bottom.border-top
-  .row
-    .col
-      if page.publishedDate
-        +link-button-primary(site.baseURL+`${page.permalink}`,'View Published', "view-published", "binoculars")
-        button.btn.btn-primary.d-none(class="not-published" type='button' disabled)  
-          i.me-2.bi(class=`bi-binoculars`)
-          span Not Published
-      else
-        +link-button-primary(site.baseURL+`${page.permalink}`,'View Published', "view-published d-none", "binoculars")
-        button.btn.btn-primary(class="not-published" type='button' disabled)  
-          i.me-2.bi(class=`bi-binoculars`)
-          span Not Published
-          
-      span.mx-2
-      if page.permalink
-        +button-primary('Publish Draft', "page-publish-draft", "pencil-square", page.permalink)
-      else
-        +button-primary('Publish Draft', "page-publish-draft", "pencil-square", "home")
+.py-2
+  .row.bg-secondary.py-2.px-4
+    .col-md
+      h3.text-white Sections
 
-    .col
-      if page.permalink
-        +link-button-primary(site.baseURL+`admin/drafts/${page.permalink}`,'View Draft', "view-draft", "binoculars")
-      else
-        +link-button-primary(site.baseURL+`admin/drafts/home`,'View Draft', "view-draft", "binoculars")
-      span.mx-2
-      +button-primary('Save Draft', "page-draft-update", "save2")
+    .col-md
+      // Template Selection
+      .input-group
+        select.form-select#select-template
+          for section in site.sections
+            option(value=`${section}-template`)= section
 
-    // Template Selection
-    .col.input-group
-      select.form-select#select-template
-        for section in site.sections
-          option(value=`${section}-template`)= section
-
-      +button-primary('Add Section', 'section-add')
-
-// Templates
-for section in site.sections
-  template(id=`${section}-template`)
-    +#{section}({}, "qq0q", "bg-info")
+        +button-primary('Add Section', 'section-add')

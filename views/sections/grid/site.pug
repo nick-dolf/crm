@@ -1,0 +1,10 @@
+include /blocks/card/site
+
+mixin grid(content)
+  section.grid
+    h1= content.heading
+    
+    .grid-container
+      if content.blocks
+        for block in content.blocks
+          +#{block.type}(block)

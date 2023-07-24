@@ -1,12 +1,20 @@
 extends layouts/default
 include /admin/section-helper/includes
 include /admin/section-helper/wrapper
+include /admin/block-helper/includes
+include /admin/block-helper/wrapper
+
 
 block header 
-  include parts/header-dashboard
-  include /admin/section-helper/controller
+  include parts/header-pages
 
 block main
 
-  form.accordion(id="pageForm")
+  form.accordion.accordion-flush(id="pageForm")
     include /templates/default/admin
+
+  include /admin/components/image-select
+
+block templates
+  include  /admin/section-helper/templates
+  include  /admin/block-helper/templates

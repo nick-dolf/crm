@@ -1,0 +1,25 @@
+mixin card(content, index, blockIndex, extraClass)
+  +block-wrapper("Card", index, blockIndex, extraClass)
+    input(type="text" name=`sections[${index}][blocks][${blockIndex}][type]` value="card" hidden)
+    
+    div.row.gy-1(data-bs-theme="dark")
+      div.col-md-4.container
+        button.image-set-active.btn.btn-outline-secondary(data-bs-toggle="modal" data-bs-target="#imageModal" type="button")
+          img.img-fluid.img-thumbnail( height=150 width=150 
+          src= site.baseURL + `admin/assets/images/original/thumb/${content.image}` )
+
+          input.form-control(name=`sections[${index}][blocks][${blockIndex}][image]` value=content.image type="hidden")
+
+        <br>
+        label.form-label(for=`sections[${index}][blocks][${blockIndex}][alt]`) Alt Text
+        input.form-control(type="text" name=`sections[${index}][blocks][${blockIndex}][alt]` value=content.alt)
+
+      div.col-md-8
+        label.form-label Link
+        input.form-control(name=`sections[${index}][blocks][${blockIndex}][link]` value=content.link)
+        label.form-label Subtext
+        textarea.form-control(name=`sections[${index}][blocks][${blockIndex}][subtext]` rows=3)= content.subtext
+        label.form-label Skills
+        input.form-control(type="text" name=`sections[${index}][blocks][${blockIndex}][skills]` value=content.skills)
+        label.form-label Github
+        input.form-control(type="text" name=`sections[${index}][blocks][${blockIndex}][github]` value=content.github)

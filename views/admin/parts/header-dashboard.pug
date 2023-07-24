@@ -1,11 +1,12 @@
 include ../components/button-primary
+include /admin/components/link-button-primary
 
 header.bg-dark.text-white.sticky-top.rounded-top.mt-1 
   .row.py-2.px-4
-    nav.col.p-0
-      h2.m-0
-        a.link-light(href= site.baseURL + "admin/") Dashboard
-        span /
-        a.m-2.link-light(href= site.baseURL + path)= title
-
-    p.m-0.col.border.rounded.text-info.overflow-auto(style="height: 60px;" id="output") ...
+    p.m-0.col-md.border.rounded.text-info.overflow-auto.order-md-1(style="height: 60px;" id="output") ...
+    
+    .col-md
+      div Title
+      nav.d-flex.justify-content-start.gap-3
+        a.nav-link(href= site.baseURL + "admin/") Pages
+        a.nav-link(href= site.baseURL + "admin/images") Images

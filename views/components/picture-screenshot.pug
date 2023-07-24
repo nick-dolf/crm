@@ -1,0 +1,12 @@
+mixin picture-screenshot(img, alt)
+  - 
+    const imgDeets = site.images[img]
+    publishImg(img, [600], imgDeets)
+    const imgName = img.replace(/\.[^.]+$/, '')+"-"+imgDeets.uploadEpochTime 
+  
+  picture
+    source(type="image/webp" srcset=`${site.baseURL}assets/images/${imgName}-600.webp`)
+    img(src=`${site.baseURL}assets/images/${imgName}-600.jpg` 
+        width=600
+        height= round(600/imgDeets.width*imgDeets.height)
+        alt=alt)

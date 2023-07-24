@@ -1,0 +1,20 @@
+include includes
+
+mixin block-controller(blocks)
+
+  .py-2.block-controller
+    .row.bg-light.py-2.px-4
+      .col-md
+        h3 Blocks
+
+      .col-md
+        // Template Selection
+        .input-group
+          select.form-select.block-select
+            for block in blocks
+              option(value=`${block}-block`)= block
+
+          +button-primary('Add Block', 'block-add')
+
+    .block-anchor
+      block

@@ -1,0 +1,35 @@
+html {
+  min-width: 320px;
+  box-sizing: border-box;
+}
+
+/* 
+/ Keeps box sizing consistent across elements, 
+/ while allowing overides as neeeded
+*/
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  margin: 0;
+  background-color: $blue;
+}
+
+main {
+  background-color: $blue;
+  color: white;
+  margin: 0 auto;
+  max-width: $max-site-width;
+  min-height: 100vh;
+  
+
+  :first-child {
+    margin-top: 0;
+  }
+  :last-child {
+    margin-bottom: 0;
+  }
+}
+
+

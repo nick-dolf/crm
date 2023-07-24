@@ -20,7 +20,7 @@ router.get("/*", (req, res) => {
     .then((data) => {
       let template = "default";
       if (data.template) template = data.template;
-      console.log(data)
+
       res.render(`templates/${template}/site`, {page: data});
     })
     .catch((err) => {

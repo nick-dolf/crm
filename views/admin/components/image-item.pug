@@ -1,0 +1,7 @@
+include /admin/components/button-danger
+
+mixin image-item(img, extraClass)
+  li.list-group-item
+    img.img-thumbnail(src=site.baseURL+'admin/assets/images/original/thumb/'+img.name)
+
+    +button-danger("delete", "image-delete", img.name)

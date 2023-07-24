@@ -1,11 +1,9 @@
 include /admin/components/button-danger
 
-mixin wrapper(title, index, extraClass)
+mixin wrapper(title, index, wrapperType, extraClass)
 
-  .accordion-item.cms-section
+  .accordion-item(class=wrapperType)
     .row
-      .col-1.handle
-        i.bi.bi-grip-horizontal
       h2.col-11.accordion-header(id=`heading-${index}`)
         button.accordion-button.collapsed(
           class=extraClass
@@ -13,9 +11,12 @@ mixin wrapper(title, index, extraClass)
           data-bs-toggle="collapse" 
           data-bs-target=`#collapse-${index}`
           )= title
+      .col-1.handle
+        i.bi.bi-grip-horizontal
+
     .accordion-collapse.collapse(id=`collapse-${index}`)
       ul.list-group.list-group-flush.accordion-body
-        li.list-group-item.d-flex.align-items-start.justify-content-between
+        li.list-group-item
           block
 
         li.list-group-item.d-flex.justify-content-end

@@ -1,0 +1,13 @@
+include /admin/block-helper/controller
+
+mixin grid(content, index, extraClass)
+  +wrapper("Grid", index, "cms-section", extraClass)
+    input(type="text" name=`sections[${index}][type]` value="grid" hidden)
+
+    label.form-label(for=`sections[${index}][heading]`) Heading
+    input.form-control(type="text" name=`sections[${index}][heading]` value=content.heading)
+    
+    +block-controller(["card"])
+      if content.blocks
+        for block, blockIndex in content.blocks
+          +#{block.type}(block, index, blockIndex)

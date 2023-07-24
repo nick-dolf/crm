@@ -1,0 +1,21 @@
+include /blocks/card/site
+include /components/image
+
+mixin intro(content)
+  section.intro
+    
+    .columns
+      .column-one
+        h1
+          = content.heading1 
+          <br> 
+          = content.heading2 
+
+        != md(content.paragraph)
+      
+      .column-two
+        +image(content.image, [300], content.alt)
+        
+        .skills
+          for skill in content.skills.split(" ")
+            p= skill

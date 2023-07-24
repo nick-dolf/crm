@@ -1,5 +1,5 @@
 {
-  "watch": ["app.js", "views", "routes", "admin","sass"],
-  "ext": "js, scss, json, pug, css",
-  "ignore": ["views/admin/section-helper/includes.pug", "views/section-helper/includes.pug","sass/sections/includes.scss"]
+  "watch": ["app.js", "views", "routes", "admin","sass", "assets"],
+  "ext": "js, scss, json, pug, css, svg",
+  "ignore": ["views/admin/section-helper/includes.pug", "views/section-helper/includes.pug","sass/sections/includes.scss","views/admin/block-helper/includes.pug", "views/block-helper/includes.pug","sass/blocks/includes.scss"]
 }

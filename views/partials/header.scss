@@ -1,0 +1,94 @@
+header.site-header {
+  @include spacing-std;
+  border-bottom: dashed 2px $charcoal;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  line-height: 1;
+  font-size: 3rem;
+  @include tablet {
+    font-size: 4rem;
+  }
+
+  a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+
+  span {
+    white-space: nowrap;
+  }
+
+  svg {
+    height: 3.6rem;
+
+    @include tablet {
+      height: 4.8rem;
+    }
+  }
+  .svg-container {
+    font-size: 0;
+  }
+
+  .overlay {
+    position: relative;
+
+    strong {
+
+      white-space: nowrap;
+    }
+  }
+
+  .overlay span {
+    position: absolute;
+  }
+
+  .bold-hover {
+    position: relative;
+    strong {
+      position: absolute;
+      opacity: 0;
+      transition: opacity 0.6s ease-in-out;
+    }
+
+    &:hover {
+      strong {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+@keyframes delayedShow {
+  to {
+    visibility: visible;
+  }
+}
+.delayedShow{
+  visibility: hidden;
+  animation: 0s linear 3s forwards delayedShow ;
+}
+
+@keyframes delayedHide {
+  to {
+    visibility: hidden;
+  }
+}
+.delayedHide{
+  visibility: visible;
+  animation: 0s linear 4s forwards delayedShow ;
+}
+
+@keyframes delayedFade {
+  to {
+    opacity: 1;
+  }
+}
+.delayedFade{
+  opacity: 0;
+  animation: 1s linear 3s forwards delayedFade ;
+}
+

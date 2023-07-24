@@ -1,0 +1,16 @@
+div.modal(id="imageModal" tabindex="-1" role="dialog" )
+  div.modal-dialog.modal-xl
+    div.modal-content
+      div.modal-header
+        h3.modal-title Select Image
+        button.btn.btn-close(type="button" data-bs-dismiss="modal" aria-label="Close")
+      div.modal-body
+        if site.images
+          for image, index in site.images
+            button.image-change.btn.m-1(type="button" data-cms-image=image.name data-cms-folder=site.baseURL + `admin/assets/images/original/`)
+              img.img-thumbnail(
+                height= 100 width=100
+                src= site.baseURL + `admin/assets/images/original/thumb/${image.name}` 
+              )
+      div.modal-footer
+        button.btn.btn-primary(type="button" data-bs-dismiss="modal") Save 

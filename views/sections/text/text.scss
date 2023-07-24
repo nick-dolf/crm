@@ -1,5 +1,18 @@
 section.text {
-  background-color: green;
-  color: black;
+  @include spacing-std;
   padding: 12px;
+  padding-bottom: 0 !important;
+  margin-bottom: 0;
+
+  p {
+    padding-bottom: 0;
+    font-size: 1.8rem;
+  }
+
+  background-color: $blue;
+  color: lightgray;
+
+  a {
+    color: lightblue;
+  }
 }

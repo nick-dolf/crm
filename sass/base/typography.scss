@@ -1,0 +1,45 @@
+html {
+  font-size: 62.5%; // allows easy font size calc. std font is 16px *.625 = 10px
+}
+
+body {
+  font-family:PtRootUi,Arial, Helvetica, sans-serif;
+  font-size: 1.6rem; // set base font size to 16px, while allowing user to resize
+  line-height: 1.5;
+}
+
+main {
+  font-size: 0;
+
+  & > * {
+    font-size: 1.6rem;
+
+  }
+}
+
+p {
+  font-size: 1.6rem;
+
+  @include tablet {
+    font-size: 1.8rem;
+  }
+  
+  @include desktop {
+    font-size: 2rem;
+  }
+
+}
+
+
+h1 {
+  font-size: 2.4rem;
+  margin: 3.2rem 0 1.6rem;
+
+  @include tablet {
+    font-size: 2.8rem;
+  }
+
+  @include desktop {
+    font-size: 3.2rem;
+  }
+}

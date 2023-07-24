@@ -1,0 +1,19 @@
+footer.site-footer {
+  @include spacing-std;
+  border-top: dashed 2px $charcoal;
+  color: white;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  a {
+    font-size: 0;
+  }
+
+  svg {
+    fill: white;
+    width: 3rem;
+    height: auto;
+  }
+}

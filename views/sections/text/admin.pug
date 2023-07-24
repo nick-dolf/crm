@@ -1,5 +1,5 @@
 mixin text(content, index, extraClass)
-  +wrapper("Text", index, extraClass)
+  +wrapper("Text", index,"cms-section", extraClass)
     input(type="text" name=`sections[${index}][type]` value="text" hidden)
     textarea.form-control.col-10(name=`sections[${index}][paragraph]` rows=8)
       = content.paragraph

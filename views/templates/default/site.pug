@@ -1,7 +1,13 @@
 extends /layouts/default
 include /section-helper/includes
 
+block header
+  include /partials/header
+
 block main
     if page.sections
       for section, index in page.sections
         +#{section.type}(section)
+
+block footer
+  include /partials/footer

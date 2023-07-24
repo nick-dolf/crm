@@ -1,19 +1,11 @@
+@import 'abstracts/fonts';
+@import 'abstracts/variables';
+@import 'abstracts/mixins';
+@import 'base/global';
+@import 'base/typography';
+@import 'blocks/includes';
 @import 'sections/includes';
 
-body {
-  margin: 0;
-  background-color: white;
-}
+@import '../views/partials/header';
+@import '../views/partials/footer';
 
-main {
-  background-color: blue;
-  border-radius: 20px;
-  color: white;
-  margin: 0 auto;
-  max-width: 1200px;
-  min-height: 100vh;
-
-  :first-child {
-    margin-top: 0;
-  }
-}

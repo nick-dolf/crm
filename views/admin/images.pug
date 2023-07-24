@@ -1,0 +1,19 @@
+extends layouts/default
+include /admin/components/image-item
+
+block header 
+  include parts/header-dashboard
+
+
+block main
+
+  li.list-group-item
+    #input-gallery
+    form#image-form(method="POST" enctype="multipart/form-data" onsubmit="submitSpinner()")
+      input#image-input.my-4.form-control(type="file" name="pic" accept="image/*" required multiple)
+      button#image-submit.form-control(type="button" ) Submit
+        span.ms-2.spinner-border.spinner-border-sm.d-none
+
+  ul#image-gallery.list-group
+    include /admin/parts/image-table
+
